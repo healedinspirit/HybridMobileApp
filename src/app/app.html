@@ -8,19 +8,19 @@
 
         <ion-content>
             <ion-list>
-                <button color="light" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                    {{p.title}}
-                </button>
-                <ion-list-header>
+              <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                {{p.title}}
+              </button>
+                <ion-list-header style="font-weight: 500;">
                     HEALING
                 </ion-list-header>
-                <button color="light" menuClose ion-item *ngFor="let p of healingPages" (click)="openPage(p)">
+                <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of healingPages" (click)="openPage(p)">
                     {{p.title}}
                 </button>
-                <ion-list-header>
+                <ion-list-header style="font-weight: 500;">
                     CLEANSING
                 </ion-list-header>
-                <button color="light" menuClose ion-item *ngFor="let p of cleansingPages" (click)="openPage(p)">
+                <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of cleansingPages" (click)="openPage(p)">
                     {{p.title}}
                 </button>
             </ion-list>
