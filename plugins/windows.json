@@ -1,0 +1,45 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.telerik.plugins.nativepagetransitions": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-ionic": {
+            "APP_ID": "f9fd3452",
+            "CHANNEL_NAME": "master",
+            "UPDATE_API": "https://api.ionicjs.com",
+            "UPDATE_METHOD": "background",
+            "MAX_STORE": "2",
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-add-swift-support": {
+            "PACKAGE_NAME": "HealedInSpirit"
+        }
+    }
+}

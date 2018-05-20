@@ -1,0 +1,8 @@
+{
+  "name": "HealedApp",
+  "app_id": "f9fd3452",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

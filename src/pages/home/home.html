@@ -1,0 +1,62 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="home-content">
+
+  <ion-grid class="home-header">
+    <ion-row>
+      <ion-col col-12>
+        <p style="margin: 1px 15% 0 15%;">
+          <img src="../../assets/logo-vertical.png" style="" />
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <h1 class="home-title">Heal Anywhere</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid padding>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button round class="card-button" (click)="GoToQuickStart()" color="his-medium">QUICK START</button>
+        <br /><br />
+        <button ion-button round class="card-button" (click)="GoToIntro()" color="his-medium">LEARN MORE</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="subject-card">
+    <ion-card-header class="subject-card-header">Legal Information</ion-card-header>
+    <ion-card-content style="background-color: #fafafa;">
+      <p>By using this app, you agree to the terms set forth in this agreement.</p>
+      <p>
+        If you are taking prescribed medications prior to using this app, you agree to
+        continue taking those prescribed medications until released from doing so
+        by the medical professional who prescribed it.
+      </p>
+      <p>
+        You agree that Healed In Spirit is a ministry of Global Arc, a non-profit corporation.
+        You agree to hold Healed In Spirit and its team members harmless and free from any and all
+        liability, loss or damage of any kind that may arise as a result of using this app.
+      </p>
+      <p>
+        You agree that using this app is not professional counseling and that none of the team members are professional counselors.
+      </p>
+      <p>
+        You agree that you have voluntarily sought assistance of your own initiative and that
+        you are under no obligation to accept or reject any of the tools and advice or help
+        you might receive from Healed In Spirit and it's tools, materials and apps.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

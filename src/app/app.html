@@ -1,0 +1,33 @@
+<ion-split-pane>
+    <ion-menu [content]="content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-list>
+                <button color="light" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                    {{p.title}}
+                </button>
+                <ion-list-header>
+                    HEALING
+                </ion-list-header>
+                <button color="light" menuClose ion-item *ngFor="let p of healingPages" (click)="openPage(p)">
+                    {{p.title}}
+                </button>
+                <ion-list-header>
+                    CLEANSING
+                </ion-list-header>
+                <button color="light" menuClose ion-item *ngFor="let p of cleansingPages" (click)="openPage(p)">
+                    {{p.title}}
+                </button>
+            </ion-list>
+        </ion-content>
+
+    </ion-menu>
+
+    <ion-nav [root]="rootPage" main #content swipebackenabled="false"></ion-nav>
+
+</ion-split-pane>
