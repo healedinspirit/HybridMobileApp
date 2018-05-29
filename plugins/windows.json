@@ -24,9 +24,6 @@
             "MAX_STORE": "2",
             "PACKAGE_NAME": "HealedInSpirit"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "HealedInSpirit"
-        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "HealedInSpirit"
         },

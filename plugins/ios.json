@@ -24,9 +24,6 @@
             "MAX_STORE": "2",
             "PACKAGE_NAME": "healingthenations.healedinspirit"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "healingthenations.healedinspirit"
-        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "healingthenations.healedinspirit"
         },
