@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <widget id="healingthenations.healedinspirit" version="2.18.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Healed In Spirit</name>
   <description>Heal spiritual injuries.</description>
@@ -92,4 +92,8 @@
     <variable name="APP_ID" value="f9fd3452" />
     <variable name="CHANNEL_NAME" value="master" />
   </plugin>
+  <vs:toolsetVersion xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">6.3.1</vs:toolsetVersion>
+  <engine name="android" spec="5.2.1" />
+  <engine name="ios" spec="4.2.0" />
+  <engine name="windows" spec="4.4.2" />
 </widget>
