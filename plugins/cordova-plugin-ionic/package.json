@@ -1,57 +1,35 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "cordova-plugin-ionic@1.1.9",
-        "scope": null,
-        "escapedName": "cordova-plugin-ionic",
-        "name": "cordova-plugin-ionic",
-        "rawSpec": "1.1.9",
-        "spec": "1.1.9",
-        "type": "version"
-      },
-      "C:\\Code\\ionic\\HealedApp\\node_modules"
-    ]
-  ],
-  "_from": "cordova-plugin-ionic@1.1.9",
-  "_id": "cordova-plugin-ionic@1.1.9",
-  "_inCache": true,
+  "_from": "cordova-plugin-ionic@4.1.7",
+  "_id": "cordova-plugin-ionic@4.1.7",
+  "_inBundle": false,
+  "_integrity": "sha512-ckFP1ImmSgIRKXCi1Gog4ZzD5rbAyPdUhjLlmzi54aXSMRn7KSJi5e7FUJ7LbblRiv7sibynmX+54cbTjbEFdQ==",
   "_location": "/cordova-plugin-ionic",
-  "_nodeVersion": "7.9.0",
-  "_npmOperationalInternal": {
-    "host": "s3://npm-registry-packages",
-    "tmp": "tmp/cordova-plugin-ionic-1.1.9.tgz_1505744400059_0.0019376615528017282"
-  },
-  "_npmUser": {
-    "name": "fuiste",
-    "email": "rudy@ionic.io"
-  },
-  "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "cordova-plugin-ionic@1.1.9",
-    "scope": null,
-    "escapedName": "cordova-plugin-ionic",
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-ionic@4.1.7",
     "name": "cordova-plugin-ionic",
-    "rawSpec": "1.1.9",
-    "spec": "1.1.9",
-    "type": "version"
+    "escapedName": "cordova-plugin-ionic",
+    "rawSpec": "4.1.7",
+    "saveSpec": null,
+    "fetchSpec": "4.1.7"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic/-/cordova-plugin-ionic-1.1.9.tgz",
-  "_shasum": "e1ca10cdbafe8bb73a87bb3b55dc4804432187ec",
-  "_shrinkwrap": null,
-  "_spec": "cordova-plugin-ionic@1.1.9",
-  "_where": "C:\\Code\\ionic\\HealedApp\\node_modules",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic/-/cordova-plugin-ionic-4.1.7.tgz",
+  "_shasum": "62f486689ef7255b996279a5eafddb0ad7f7f109",
+  "_spec": "cordova-plugin-ionic@4.1.7",
+  "_where": "C:\\code\\ionic\\hybridmobileapp",
   "author": {
     "name": "Ionic"
   },
   "bugs": {
     "url": "https://github.com/ionic-team/cordova-plugin-ionic/issues"
   },
+  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Max Lynch",
@@ -75,21 +53,21 @@
     "plist": ">=1.2.0",
     "xml2js": ">=0.4"
   },
+  "deprecated": false,
   "description": "Ionic Cordova SDK",
-  "devDependencies": {},
-  "directories": {},
-  "dist": {
-    "shasum": "e1ca10cdbafe8bb73a87bb3b55dc4804432187ec",
-    "tarball": "https://registry.npmjs.org/cordova-plugin-ionic/-/cordova-plugin-ionic-1.1.9.tgz"
-  },
   "engines": {
     "cordovaDependencies": {
-      "1.1.9": {
+      "2.0.4": {
         "cordova-plugin-splashscreen": ">=4.0.0"
+      },
+      "3.1.3": {
+        "cordova-plugin-splashscreen": ">=5.0.1"
+      },
+      "4.1.7": {
+        "cordova-plugin-splashscreen": ">=5.0.1"
       }
     }
   },
-  "gitHead": "5ce2f34a53b33047975a8f63704544f779945129",
   "homepage": "https://github.com/ionic-team/cordova-plugin-ionic#readme",
   "issue": "https://github.com/ionic-team/cordova-plugin-ionic/issues",
   "keywords": [
@@ -104,19 +82,10 @@
     "cordova-ios"
   ],
   "license": "MIT",
-  "maintainers": [
-    {
-      "name": "fuiste",
-      "email": "rudy@ionic.io"
-    }
-  ],
   "name": "cordova-plugin-ionic",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ionic-team/cordova-plugin-ionic.git"
   },
-  "scripts": {},
-  "version": "1.1.9"
+  "version": "4.1.7"
 }

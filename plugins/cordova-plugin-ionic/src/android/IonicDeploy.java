@@ -3,6 +3,8 @@ package com.ionicframework.deploy;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
@@ -11,9 +13,24 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.os.Handler;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -48,6 +65,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.regex.Pattern;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -64,6 +82,7 @@ public class IonicDeploy extends CordovaPlugin {
   String app_id = null;
   String channel = null;
   String autoUpdate = "auto";
+  String shouldDebug;
   boolean debug = true;
   boolean isLoading = false;
   SharedPreferences prefs = null;
@@ -73,6 +92,12 @@ public class IonicDeploy extends CordovaPlugin {
   boolean ignore_deploy = false;
   JSONObject last_update;
 
+  // Auto-update splash dialog
+  private static Dialog splashDialog;
+  private static ProgressDialog spinnerDialog;
+  private ImageView splashImageView;
+
+  public static final String PLUGIN_VERSION = "4.1.3";
   public static final String INDEX_UPDATED = "INDEX_UPDATED";
   public static final String NO_DEPLOY_LABEL = "NO_DEPLOY_LABEL";
   public static final String NO_DEPLOY_AVAILABLE = "NO_DEPLOY_AVAILABLE";
@@ -119,8 +144,10 @@ public class IonicDeploy extends CordovaPlugin {
 
   private Boolean isDebug() {
     try {
-      if ((this.myContext.getPackageManager().getPackageInfo(this.myContext.getPackageName(), 0).applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-        return true;
+      if ((this.myContext.getPackageManager().getPackageInfo(this.myContext.getPackageName(), 0).applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 ) {
+        if(!this.shouldDebug.equals("false")){
+          return true;
+        }
       }
     } catch (NameNotFoundException e){
       // do nothing
@@ -145,6 +172,7 @@ public class IonicDeploy extends CordovaPlugin {
     this.server = getStringResourceByName("ionic_update_api");
     this.channel = prefs.getString("channel", getStringResourceByName("ionic_channel_name"));
     this.autoUpdate = getStringResourceByName("ionic_update_method");
+    this.shouldDebug = prefs.getString("debug", getStringResourceByName("ionic_debug"));
 
     try {
       this.maxVersions = Integer.parseInt(getStringResourceByName("ionic_max_versions"));
@@ -196,16 +224,28 @@ public class IonicDeploy extends CordovaPlugin {
   }
 
   private void checkAndDownloadNewVersion() {
-    if (!this.autoUpdate.equals("none") && !this.isDebug()) {
+    if (!this.autoUpdate.equals("none")) {
       this.isLoading = true;
       final IonicDeploy self = this;
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
           if (isUpdateAvailable()) {
             try {
-              String url = self.last_update.getString("url");
-              final DownloadTask downloadTask = new DownloadTask(self.myContext, self);
-              downloadTask.execute(url);
+              if (self.autoUpdate.equals("auto")) {
+                showSplashScreen();
+              }
+
+              String upstream_uuid = self.prefs.getString("upstream_uuid", "");
+              if (upstream_uuid != "" && self.hasVersion(upstream_uuid)) {
+                // Set the current version to the upstream uuid
+                self.prefs.edit().putString("uuid", upstream_uuid).apply();
+                logMessage("EXTRACT", "Extracting update");
+                self.unzip("www.zip", upstream_uuid, null);
+              } else {
+                String url = self.last_update.getString("url");
+                final DownloadTask downloadTask = new DownloadTask(self.myContext, self);
+                downloadTask.execute(url);
+              }
             } catch (JSONException e) {
               logMessage("AUTO_UPDATE", "Update information is not available");
             }
@@ -235,7 +275,11 @@ public class IonicDeploy extends CordovaPlugin {
 
       if(!IonicDeploy.NO_DEPLOY_AVAILABLE.equals(uuid)) {
         logMessage("LOAD", "Init Deploy Version");
-        this.redirect(uuid);
+        if (this.isDebug()) {
+          this.showDebug();
+        } else {
+          this.redirect(uuid);
+        }
       }
     }
     return null;
@@ -258,16 +302,25 @@ public class IonicDeploy extends CordovaPlugin {
     final SharedPreferences prefs = this.prefs;
 
     if (action.equals("initialize")) {
-      return true;
-    } else if (action.equals("showDebug")) {
-      this.showDebug();
+      JSONObject conf = new JSONObject(args.getString(0));
+      if (conf.has("appId")) {
+        this.app_id = conf.getString("appId");
+        this.prefs.edit().putString("app_id", this.app_id).apply();
+      }
+
+      if (conf.has("host")) {
+        this.server = conf.getString("host");
+      }
+
+      if (conf.has("channel")) {
+        this.channel = conf.getString("channel");
+        this.prefs.edit().putString("channel", this.channel).apply();
+      }
+
+      callbackContext.success();
       return true;
     } else if (action.equals("check")) {
       logMessage("CHECK", "Checking for updates");
-      if(!this.channel.equals(args.getString(1))) {
-        this.channel = args.getString(1);
-        this.prefs.edit().putString("channel", this.channel).apply();
-      }
       final String channel_tag = this.channel;
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
@@ -285,16 +338,17 @@ public class IonicDeploy extends CordovaPlugin {
       return true;
     } else if (action.equals("extract")) {
       logMessage("EXTRACT", "Extracting update");
-      final String uuid = this.getUUID("");
+      final String upstream_uuid = this.prefs.getString("upstream_uuid", "");
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
-          unzip("www.zip", uuid, callbackContext);
+          unzip("www.zip", upstream_uuid, callbackContext);
         }
       });
       return true;
     } else if (action.equals("redirect")) {
       final String uuid = this.getUUID("");
       this.redirect(uuid);
+      callbackContext.success();
       return true;
     } else if (action.equals("info")) {
       this.info(callbackContext);
@@ -303,7 +357,7 @@ public class IonicDeploy extends CordovaPlugin {
       callbackContext.success(this.getDeployVersions());
       return true;
     } else if (action.equals("deleteVersion")) {
-      final String uuid = args.getString(1);
+      final String uuid = args.getString(0);
       boolean status = this.removeVersion(uuid);
       if (status) {
         callbackContext.success();
@@ -313,7 +367,7 @@ public class IonicDeploy extends CordovaPlugin {
       return true;
     } else if (action.equals("parseUpdate")) {
       logMessage("PARSEUPDATE", "Checking response for updates");
-      final String response = args.getString(1);
+      final String response = args.getString(0);
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
           parseUpdate(callbackContext, response);
@@ -384,6 +438,8 @@ public class IonicDeploy extends CordovaPlugin {
         } else if(updatesAvailable) {
           try {
             String update_uuid = update.getString("snapshot");
+            logMessage("upstream", "update uuid: "+update_uuid+" ignore version: "+ignore_version+" loaded_version: "+loaded_version);
+
             if(!update_uuid.equals(ignore_version) && !update_uuid.equals(loaded_version)) {
               prefs.edit().putString("upstream_uuid", update_uuid).apply();
               this.last_update = update;
@@ -619,6 +675,7 @@ public class IonicDeploy extends CordovaPlugin {
     JSONObject device_details = new JSONObject();
 
     try {
+      logMessage("endpoint", endpoint);
       device_details.put("binary_version", this.deconstructVersionLabel(this.version_label)[0]);
       if(!uuid.equals("")) {
         device_details.put("snapshot", uuid);
@@ -627,6 +684,10 @@ public class IonicDeploy extends CordovaPlugin {
       json.put("channel_name", channel_tag);
       json.put("app_id", this.app_id);
       json.put("device", device_details);
+      json.put("plugin_version", IonicDeploy.PLUGIN_VERSION);
+      logMessage("channel_name", channel_tag);
+      logMessage("app_id", this.app_id);
+      logMessage("device", device_details.toString());
 
       String params = json.toString();
       byte[] postData = params.getBytes("UTF-8");
@@ -704,15 +765,49 @@ public class IonicDeploy extends CordovaPlugin {
     }
   }
 
+  private void copyFiles(File[] files, File outputDir) throws IOException {
+    for (File file : files) {
+      if (file.isDirectory()) {
+        copyFiles(file.listFiles(), outputDir);
+      } else {
+        String filePath = file.getPath();
+        // assumption that output directory and input directory are siblings
+        String baseAppDir = outputDir.getParent();
+        String relativePath = filePath.substring(baseAppDir.length() + 1);
+        relativePath = relativePath.substring(relativePath.indexOf("/"));
+        File outFile = new File(outputDir.getPath() + relativePath);
+        if (!outFile.getParentFile().exists()) {
+          outFile.getParentFile().mkdirs();
+        }
+        copyFile(file, outFile);
+      }
+    }
+  }
+
+  private void copyFile(File inFile, File outFile) throws IOException {
+    InputStream in = new FileInputStream(inFile);
+    OutputStream out = new FileOutputStream(outFile);
+    byte[] buffer = new byte[2048];
+    BufferedOutputStream bufferedOut = new BufferedOutputStream(out, buffer.length);
+    int bits;
+    try {
+      while ((bits = in.read(buffer, 0, buffer.length)) != -1) {
+        bufferedOut.write(buffer, 0, bits);
+      }
+    } finally {
+      in.close();
+      bufferedOut.close();
+    }
+  }
+
   /**
    * Extract the downloaded archive
    *
    * @param zip
-   * @param location
+   * @param upstream_uuid
    */
-  private void unzip(String zip, String location, CallbackContext callbackContext) {
+  private void unzip(String zip, String upstream_uuid, CallbackContext callbackContext) {
     SharedPreferences prefs = getPreferences();
-    String upstream_uuid = prefs.getString("upstream_uuid", "");
 
     logMessage("UNZIP", upstream_uuid);
 
@@ -721,18 +816,41 @@ public class IonicDeploy extends CordovaPlugin {
       this.updateVersionLabel(IonicDeploy.NOTHING_TO_IGNORE);
 
       if (callbackContext != null) {
-        callbackContext.success("done"); // we have already extracted this version
+        callbackContext.success("true");
+      } else if (this.autoUpdate.equals("auto")) {
+        if (this.isDebug()) {
+          this.showDebug();
+        } else {
+          this.redirect(this.getUUID(""));
+        }
       }
       return;
     }
-
     try  {
       FileInputStream inputStream = this.myContext.openFileInput(zip);
       ZipInputStream zipInputStream = new ZipInputStream(inputStream);
       ZipEntry zipEntry = null;
 
       // Make the version directory in internal storage
-      File versionDir = this.myContext.getDir(location, Context.MODE_PRIVATE);
+      File versionDir = this.myContext.getDir(upstream_uuid, Context.MODE_PRIVATE);
+
+
+      Boolean partialUpdate = false;
+      try {
+        partialUpdate = Boolean.valueOf(this.last_update.getString("partial"));
+      } catch (JSONException e) {}
+
+      if (partialUpdate) {
+        // copy previous version files over if we're doing partial updates
+        // get previous version path
+        String uuid = prefs.getString("uuid", "");
+        if (!"".equalsIgnoreCase(uuid)) {
+          File[] files = this.myContext.getDir(uuid, Context.MODE_PRIVATE).listFiles();
+          copyFiles(files, versionDir);
+        } else {
+          throw new Exception("Previous version UUID was null, but partial update indicated");
+        }
+      }
 
       logMessage("UNZIP_DIR", versionDir.getAbsolutePath().toString());
 
@@ -776,6 +894,42 @@ public class IonicDeploy extends CordovaPlugin {
       }
       zipInputStream.close();
 
+      // Save the version we just downloaded as a version on hand
+      saveVersion(upstream_uuid);
+
+      // Set the saved uuid to the most recently acquired upstream_uuid
+      prefs.edit().putString("uuid", upstream_uuid).apply();
+
+      String wwwFile = this.myContext.getFileStreamPath(zip).getAbsolutePath().toString();
+      if (this.myContext.getFileStreamPath(zip).exists()) {
+        String deleteCmd = "rm -r " + wwwFile;
+        Runtime runtime = Runtime.getRuntime();
+        try {
+          runtime.exec(deleteCmd);
+          logMessage("REMOVE", "Removed www.zip");
+        } catch (IOException e) {
+          logMessage("REMOVE", "Failed to remove " + wwwFile + ". Error: " + e.getMessage());
+        }
+      }
+
+      // if we get here we know unzip worked
+      this.ignore_deploy = false;
+      this.updateVersionLabel(IonicDeploy.NOTHING_TO_IGNORE);
+
+      this.isLoading = false;
+
+      if (callbackContext != null) {
+        callbackContext.success("true");
+      } else if (this.autoUpdate.equals("auto")) {
+        if (this.isDebug()) {
+          this.showDebug();
+        } else {
+          this.redirect(this.getUUID(""));
+        }
+      } else {
+        removeSplashScreen();
+      }
+
     } catch(Exception e) {
       //TODO Handle problems..
       logMessage("UNZIP_STEP", "Exception: " + e.getMessage());
@@ -794,37 +948,9 @@ public class IonicDeploy extends CordovaPlugin {
       }
 
       if (callbackContext != null) {
-        // make sure to send an error
         callbackContext.error(e.getMessage());
       }
       return;
-    }
-
-    // Save the version we just downloaded as a version on hand
-    saveVersion(upstream_uuid);
-
-    String wwwFile = this.myContext.getFileStreamPath(zip).getAbsolutePath().toString();
-    if (this.myContext.getFileStreamPath(zip).exists()) {
-      String deleteCmd = "rm -r " + wwwFile;
-      Runtime runtime = Runtime.getRuntime();
-      try {
-        runtime.exec(deleteCmd);
-        logMessage("REMOVE", "Removed www.zip");
-      } catch (IOException e) {
-        logMessage("REMOVE", "Failed to remove " + wwwFile + ". Error: " + e.getMessage());
-      }
-    }
-
-    // if we get here we know unzip worked
-    this.ignore_deploy = false;
-    this.updateVersionLabel(IonicDeploy.NOTHING_TO_IGNORE);
-
-    this.isLoading = false;
-
-    if (callbackContext != null) {
-      callbackContext.success("done");
-    } else if (this.autoUpdate.equals("auto")) {
-      this.redirect(this.getUUID(""));
     }
   }
 
@@ -863,6 +989,7 @@ public class IonicDeploy extends CordovaPlugin {
             prefs.edit().putString("loaded_uuid", uuid).apply();
             webView.loadUrlIntoView(indexLocation, false);
             webView.clearHistory();
+            removeSplashScreen();
           }
         });
       } catch (Exception e) {
@@ -883,34 +1010,15 @@ public class IonicDeploy extends CordovaPlugin {
     String newReference = "<script src=\"file:///android_asset/www/cordova.js\"></script>";
 
     // Define regular expressions
-    String commentedRegexString = "<!--.*<script src=(\"|')(.*\\/|)cordova\\.js.*(\"|')>.*<\\/script>.*-->";  // Find commented cordova.js
-    String cordovaRegexString = "<script src=(\"|')(.*\\/|)cordova\\.js.*(\"|')>.*<\\/script>";  // Find cordova.js
-    String scriptRegexString = "<script.*>.*</script>";  // Find a script tag
+    String cordovaRegexString = "<script src=(?:\"|')(?:[\\w\\-\\:/\\.]*/)?cordova\\.js(?:[\\.\\w]*)?(?:\"|')>(.|[\\r\\n])*?</script>";  // Find cordova.js
 
     // Compile the regexes
-    Pattern commentedRegex = Pattern.compile(commentedRegexString);
     Pattern cordovaRegex = Pattern.compile(cordovaRegexString);
-    Pattern scriptRegex = Pattern.compile(scriptRegexString);
 
-    // First, make sure cordova.js isn't commented out.
-    if (commentedRegex.matcher(indexStr).find()) {
-      // It is, let's uncomment it.
-      indexStr = indexStr.replaceAll(commentedRegexString, newReference);
-    } else {
-      // It's either uncommented or missing
-      // First let's see if it's uncommented
-      if (cordovaRegex.matcher(indexStr).find()) {
-        // We found an extant cordova.js, update it
-        indexStr = indexStr.replaceAll(cordovaRegexString, newReference);
-      } else {
-        // No cordova.js, gotta inject it!
-        // First, find the first script tag we can
-        Matcher scriptMatcher = scriptRegex.matcher(indexStr);
-        if (scriptMatcher.find()) {
-          // Got the script, add cordova.js below it
-          String newScriptTag = String.format("%s\n%s\n", scriptMatcher.group(0), newReference);
-        }
-      }
+    // Find cordova.js
+    if (cordovaRegex.matcher(indexStr).find()) {
+      // We found an extant cordova.js, update it
+      indexStr = indexStr.replaceAll(cordovaRegexString, newReference);
     }
 
     return indexStr;
@@ -920,56 +1028,183 @@ public class IonicDeploy extends CordovaPlugin {
     final CordovaInterface cordova = this.cordova;
     final IonicDeploy weak = this;
 
-    if (this.isDebug() && this.prefs.getInt("no_debug", 0) == 0) {
-      Runnable runnable = new Runnable() {
-        public void run() {
+    Runnable runnable = new Runnable() {
+      public void run() {
 
-          AlertDialog.Builder dlg = new AlertDialog.Builder(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-          dlg.setMessage("A live update may be available, but this device appears to be running a debug build.  Would you like to apply live updates, or disable live updating while you develop?");
-          dlg.setTitle("Deploy: Debug");
-          dlg.setCancelable(false);
+        AlertDialog.Builder dlg = new AlertDialog.Builder(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        dlg.setMessage("A newer version of this app is available on this device.\nWould you like to update or stay on the bundled version?\n(This warning only appears in debug builds)");
+        dlg.setTitle("Deploy: Debug");
+        dlg.setCancelable(false);
 
-          dlg.setNegativeButton("Disable",
-            new AlertDialog.OnClickListener() {
-              public void onClick(DialogInterface dialog, int which) {
-                prefs.edit().putInt("no_debug", 1).apply();
-                dialog.dismiss();
-              }
-            });
+        dlg.setNegativeButton("Ignore",
+          new AlertDialog.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+              weak.removeSplashScreen();
+              dialog.dismiss();
+            }
+          });
 
-          dlg.setPositiveButton("Update",
-            new AlertDialog.OnClickListener() {
-              public void onClick(DialogInterface dialog, int which) {
-                weak.autoUpdate = "auto";
-                cordova.getThreadPool().execute(new Runnable() {
-                  public void run() {
-                    if (weak.isUpdateAvailable()) {
-                      try {
-                        String url = weak.last_update.getString("url");
-                        final DownloadTask downloadTask = new DownloadTask(weak.myContext, weak);
-                        downloadTask.execute(url);
-                      } catch (JSONException e) {
-                        logMessage("AUTO_UPDATE", "Update information is not available");
-                      }
-                    }
-                  }
-                });
-                dialog.dismiss();
-              }
-            });
+        dlg.setPositiveButton("Update",
+          new AlertDialog.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+              weak.redirect(weak.getUUID(""));
+              dialog.dismiss();
+            }
+          });
 
-          int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-          dlg.create();
-          AlertDialog dialog =  dlg.show();
-          if (currentapiVersion >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            TextView messageview = (TextView)dialog.findViewById(android.R.id.message);
-            messageview.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
-          }
-        };
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        dlg.create();
+        AlertDialog dialog =  dlg.show();
+        if (currentapiVersion >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+          TextView messageview = (TextView)dialog.findViewById(android.R.id.message);
+          messageview.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
+        }
       };
+    };
 
-      this.cordova.getActivity().runOnUiThread(runnable);
+    this.cordova.getActivity().runOnUiThread(runnable);
+  }
+
+  private int getSplashId() {
+    int drawableId = 0;
+    String splashResource = preferences.getString("SplashScreen", "screen");
+    if (splashResource != null) {
+      drawableId = this.cordova.getActivity().getResources().getIdentifier(splashResource, "drawable", cordova.getActivity().getClass().getPackage().getName());
+      if (drawableId == 0) {
+        drawableId = this.cordova.getActivity().getResources().getIdentifier(splashResource, "drawable", cordova.getActivity().getPackageName());
+      }
     }
+    return drawableId;
+  }
+
+  private void spinnerStart() {
+    cordova.getActivity().runOnUiThread(new Runnable() {
+      public void run() {
+        spinnerStop();
+
+        spinnerDialog = new ProgressDialog(webView.getContext());
+        spinnerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+          public void onCancel(DialogInterface dialog) {
+            spinnerDialog = null;
+          }
+        });
+
+        spinnerDialog.setCancelable(false);
+        spinnerDialog.setIndeterminate(true);
+        RelativeLayout centeredLayout = new RelativeLayout(cordova.getActivity());
+        centeredLayout.setGravity(Gravity.CENTER);
+        centeredLayout.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        ProgressBar progressBar = new ProgressBar(webView.getContext());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        progressBar.setLayoutParams(layoutParams);
+        centeredLayout.addView(progressBar);
+        spinnerDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        spinnerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        spinnerDialog.show();
+        spinnerDialog.setContentView(centeredLayout);
+      }
+    });
+  }
+
+  private void spinnerStop() {
+    this.cordova.getActivity().runOnUiThread(new Runnable() {
+      public void run() {
+        if (spinnerDialog != null && spinnerDialog.isShowing()) {
+          spinnerDialog.dismiss();
+          spinnerDialog = null;
+        }
+      }
+    });
+  }
+
+  private void removeSplashScreen() {
+    cordova.getActivity().runOnUiThread(new Runnable() {
+      public void run() {
+        if (splashDialog != null && splashDialog.isShowing()) {
+          final int fadeSplashScreenDuration = 300;
+          if (fadeSplashScreenDuration > 0) {
+            AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+            fadeOut.setInterpolator(new DecelerateInterpolator());
+            fadeOut.setDuration(fadeSplashScreenDuration);
+
+            splashImageView.setAnimation(fadeOut);
+            splashImageView.startAnimation(fadeOut);
+
+            fadeOut.setAnimationListener(new Animation.AnimationListener() {
+              @Override
+              public void onAnimationStart(Animation animation) {
+                spinnerStop();
+              }
+
+              @Override
+              public void onAnimationEnd(Animation animation) {
+                if (splashDialog != null && splashDialog.isShowing()) {
+                  splashDialog.dismiss();
+                  splashDialog = null;
+                  splashImageView = null;
+                }
+              }
+
+              @Override
+              public void onAnimationRepeat(Animation animation) {
+              }
+            });
+          } else {
+            spinnerStop();
+            splashDialog.dismiss();
+            splashDialog = null;
+            splashImageView = null;
+          }
+        }
+      }
+    });
+  }
+
+  @SuppressWarnings("deprecation")
+  private void showSplashScreen() {
+    final int drawableId = getSplashId();
+
+    if (cordova.getActivity().isFinishing()) {
+      return;
+    }
+    if (splashDialog != null && splashDialog.isShowing()) {
+      return;
+    }
+    if (drawableId == 0) {
+      return;
+    }
+
+    cordova.getActivity().runOnUiThread(new Runnable() {
+      public void run() {
+        Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
+        Context context = webView.getContext();
+
+        splashImageView = new ImageView(context);
+        splashImageView.setImageResource(drawableId);
+        LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        splashImageView.setLayoutParams(layoutParams);
+
+        splashImageView.setMinimumHeight(display.getHeight());
+        splashImageView.setMinimumWidth(display.getWidth());
+        splashImageView.setBackgroundColor(preferences.getInteger("backgroundColor", Color.BLACK));
+
+        if (preferences.getBoolean("SplashMaintainAspectRatio", false)) {
+          splashImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } else {
+          splashImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
+
+        splashDialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+        if ((cordova.getActivity().getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+          splashDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        splashDialog.setContentView(splashImageView);
+        splashDialog.setCancelable(false);
+        splashDialog.show();
+        spinnerStart();
+      }
+    });
   }
 
   private class DownloadTask extends AsyncTask<String, Integer, String> {
@@ -1061,9 +1296,7 @@ public class IonicDeploy extends CordovaPlugin {
       // Request shared preferences for this app id
       SharedPreferences prefs = getPreferences();
 
-      // Set the saved uuid to the most recently acquired upstream_uuid
-      final String uuid = prefs.getString("upstream_uuid", "");
-      prefs.edit().putString("uuid", uuid).apply();
+      final String upstream_uuid = prefs.getString("upstream_uuid", "");
 
       if (this.callbackContext != null) {
         this.callbackContext.success("true");
@@ -1071,7 +1304,7 @@ public class IonicDeploy extends CordovaPlugin {
         logMessage("EXTRACT", "Extracting update");
         cordova.getThreadPool().execute(new Runnable() {
           public void run() {
-            deploy.unzip("www.zip", uuid, null);
+            deploy.unzip("www.zip", upstream_uuid, null);
           }
         });
       }
