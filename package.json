@@ -9,9 +9,9 @@
   },
   "scripts": {
     "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
+    "build": "ionic-app-scripts build && ionic-app-scripts copy",
     "lint": "ionic-app-scripts lint",
-    "ionic:build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build && ionic-app-scripts copy",
     "ionic:serve": "ionic-app-scripts serve",
     "copy": "ionic-app-scripts copy"
   },
