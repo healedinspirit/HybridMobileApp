@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <widget id="healingthenations.healedinspirit" version="2.18.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>HealedInSpirit</name>
+  <name>Healed In Spirit</name>
   <description>Heal spiritual injuries.</description>
   <author email="healedinspirit@gmail.com" href="https://www.facebook.com/healedinspirit/">Healed In Spirit</author>
   <content src="index.html" />
