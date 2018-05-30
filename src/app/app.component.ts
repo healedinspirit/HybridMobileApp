@@ -27,10 +27,11 @@ export class MyApp {
     cleansingPages: Array<{ title: string, component: any }>;
     
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public monitoring: AnalyticsService) {
-      this.monitoring.TrackView('App Constructor ' + new Date().toUTCString());
+
+      this.monitoring.TrackView('Application');
 
         this.initializeApp();
-        this.monitoring.TrackView('App Constructor 2 ' + new Date().toUTCString());  
+      
         this.pages = [
             { title: 'Home', component: HomePage },
             { title: 'Introduction', component: IntroPage },

@@ -4,7 +4,7 @@ import { Pro } from '@ionic/pro';
 @Injectable()
 export class MonitoringService {
 
-    public pro = Pro.init('f9fd3452', { appVersion: '2.018.5' });
+    public pro = Pro.init('f9fd3452', { appVersion: '2.18.6' });
 
     constructor() {
     }
