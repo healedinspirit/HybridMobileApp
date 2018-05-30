@@ -19,7 +19,7 @@ export class LumberPage {
     this.navCtrl.push(PoisonPage);
   }
   GoHome() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
   Next() {
     this.navCtrl.push(WastePage);

@@ -19,7 +19,7 @@ export class CutsPage {
     this.navCtrl.push(CallusPage);
   }
   GoHome() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
   Next() {
     this.navCtrl.push(PuncturesPage);

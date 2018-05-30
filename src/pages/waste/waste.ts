@@ -18,9 +18,9 @@ export class WastePage {
       this.navCtrl.push(LumberPage);
   }
   GoHome() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
   Next() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
 }

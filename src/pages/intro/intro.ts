@@ -19,6 +19,6 @@ export class IntroPage {
   }
   
   GoHome() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.push(HomePage);
   }
 }

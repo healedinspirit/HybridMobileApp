@@ -53,14 +53,11 @@ export class MyApp {
         ];
 
     }
-
-    ionViewDidEnter() {
-        this.splashScreen.hide();
-    }
   
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
+        this.splashScreen.hide();
         });
     }
         

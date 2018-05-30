@@ -21,7 +21,7 @@ export class CallusPage {
   }
 
   GoHome() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
 
   Next() {

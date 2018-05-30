@@ -23,6 +23,6 @@ export class QuickStartPage {
     this.navCtrl.setRoot(IntroPage);
   }
   GoHome() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.push(HomePage);
   }
 }

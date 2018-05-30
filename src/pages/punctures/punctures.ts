@@ -19,7 +19,7 @@ export class PuncturesPage {
     this.navCtrl.push(CutsPage);
   }
   GoHome() {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(HomePage);
   }
   Next() {
     this.navCtrl.push(AdhesivesPage);

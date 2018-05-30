@@ -19,7 +19,7 @@ export class AdhesivesPage {
       this.navCtrl.push(PuncturesPage);
     }
     GoHome() {
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.push(HomePage);
     }
     Next() {
       this.navCtrl.push(PoisonPage);
