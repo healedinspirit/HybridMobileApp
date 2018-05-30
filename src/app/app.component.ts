@@ -53,16 +53,19 @@ export class MyApp {
         ];
 
     }
-        
+
+    ionViewDidEnter() {
+        this.splashScreen.hide();
+    }
+  
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
-            this.splashScreen.hide();
         });
     }
         
   openPage(page) {
-    this.nav.push(page.component);
+      this.nav.push(page.component);
     }
   
 }
