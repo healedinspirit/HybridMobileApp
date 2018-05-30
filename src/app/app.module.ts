@@ -24,7 +24,7 @@ import { MonitoringService } from '../services/monitoring-service';
 import { AnalyticsService } from '../services/analytics-service';
 
 export class AppErrorHandler implements ErrorHandler {
-  private IonicPro = Pro.init('f9fd3452', { appVersion: '0.0.1' });
+  private IonicPro = Pro.init('f9fd3452', { appVersion: '2.018.6' });
   constructor() { }
 
   handleError(err: any): void {
