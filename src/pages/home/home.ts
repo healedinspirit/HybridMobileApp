@@ -5,6 +5,7 @@ import { QuickStartPage } from '../intro/quickstart';
 import { HeatPage } from '../heat/heat';
 import { HealingPage } from '../healing/healing';
 import { CleansingPage } from '../cleansing/cleansing';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { AnalyticsService } from '../../services/analytics-service';
@@ -15,8 +16,9 @@ import { AnalyticsService } from '../../services/analytics-service';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private transitions: NativePageTransitions, private ga: AnalyticsService) {
+  constructor(public navCtrl: NavController, private transitions: NativePageTransitions, private ga: AnalyticsService, public splashScreen: SplashScreen) {
       this.ga.TrackView('Home');
+      this.splashScreen.hide();
     }
 
   LearnMore() {
