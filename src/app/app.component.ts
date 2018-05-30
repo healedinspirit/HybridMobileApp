@@ -14,7 +14,7 @@ import { PoisonPage } from '../pages/poison/poison';
 import { WastePage } from '../pages/waste/waste';
 import { AdhesivesPage } from '../pages/adhesives/adhesives';
 import { QuickStartPage } from '../pages/intro/quickstart';
-import { MonitoringService } from '../services/monitoring-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @Component({
     templateUrl: 'app.html'
@@ -26,11 +26,11 @@ export class MyApp {
     healingPages: Array<{ title: string, component: any }>;
     cleansingPages: Array<{ title: string, component: any }>;
     
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public monitoring: MonitoringService) {
-      this.monitoring.log('App Constructor');
+    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public monitoring: AnalyticsService) {
+      this.monitoring.TrackView('App Constructor ' + new Date().toUTCString());
 
         this.initializeApp();
-        
+        this.monitoring.TrackView('App Constructor 2 ' + new Date().toUTCString());  
         this.pages = [
             { title: 'Home', component: HomePage },
             { title: 'Introduction', component: IntroPage },
