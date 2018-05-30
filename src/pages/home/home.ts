@@ -18,8 +18,12 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private transitions: NativePageTransitions, private ga: AnalyticsService, public splashScreen: SplashScreen) {
       this.ga.TrackView('Home');
-      this.splashScreen.hide();
+  
     }
+
+  ionViewDidEnter() {
+    this.splashScreen.hide();
+  }
 
   LearnMore() {
       this.transitions.slide({
