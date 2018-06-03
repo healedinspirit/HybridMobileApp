@@ -26,16 +26,6 @@ export class HomePage {
   }
 
   LearnMore() {
-      this.transitions.slide({
-          direction: 'left',
-          duration: 500,
-          slowdownfactor: 3,
-          slidePixels: 20,
-          iosdelay: 100,
-          androiddelay: 150,
-          fixedPixelsTop: 0,
-          fixedPixelsBottom: 60
-      });
       this.navCtrl.push(IntroPage);
   }
 
