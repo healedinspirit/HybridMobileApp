@@ -36,15 +36,11 @@ export class HomePage {
           fixedPixelsTop: 0,
           fixedPixelsBottom: 60
       });
-      this.navCtrl.setRoot(IntroPage);
+      this.navCtrl.push(IntroPage);
   }
 
   GetStarted() {
     this.navCtrl.push(HeatPage);
-  }
-
-  GoToHealing() {
-      this.navCtrl.setRoot(HealingPage);
   }
 
   GoToCleansing() {
