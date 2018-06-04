@@ -24,24 +24,12 @@ export class HomePage {
   ionViewDidEnter() {
     this.splashScreen.hide();
   }
-
-  LearnMore() {
+  
+  GoToIntro() {
       this.navCtrl.push(IntroPage);
   }
 
-  GetStarted() {
-    this.navCtrl.push(HeatPage);
-  }
-
-  GoToCleansing() {
-      this.navCtrl.setRoot(CleansingPage);
-  }
-  
-  GoToIntro() {
-      this.navCtrl.setRoot(IntroPage);
-  }
-
   GoToQuickStart() {
-    this.navCtrl.setRoot(QuickStartPage);
+    this.navCtrl.push(QuickStartPage);
   }
 }
