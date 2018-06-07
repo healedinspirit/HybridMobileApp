@@ -30,19 +30,8 @@
         <button ion-button round class="card-button" (click)="GoToIntro()" color="his-medium">LEARN MORE</button>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col text-center>
-        <button ion-button round (click)="ShareToFacebook()"><ion-icon name="logo-facebook"></ion-icon></button>
-      </ion-col>
-      <ion-col text-center>
-        <button ion-button round (click)="ShareToTwitter()"><ion-icon name="logo-twitter"></ion-icon></button>
-      </ion-col>
-      <ion-col text-center>
-        <button ion-button round (click)="ShareToEmail()"><ion-icon name="mail"></ion-icon></button>
-      </ion-col>
-    </ion-row>
   </ion-grid>
-
+<br/>
   <ion-card class="subject-card">
     <ion-card-header style="background-color: #fefefe;" class="subject-card-header">Legal Information</ion-card-header>
     <ion-card-content style="background-color: #fefefe;">
@@ -73,7 +62,7 @@
   </ion-card>
   
   <ion-fab right bottom>
-    <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="vibrant"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
       <button ion-fab (click)="ShareToFacebook()"><ion-icon name="logo-facebook"></ion-icon></button>
       <button ion-fab (click)="ShareToTwitter()"><ion-icon name="logo-twitter"></ion-icon></button>
