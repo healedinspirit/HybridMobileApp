@@ -57,5 +57,13 @@
       </p>
     </ion-card-content>
   </ion-card>
-
+  
+<ion-fab right bottom>
+    <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="ShareToFacebook()"><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab (click)="ShareToTwitter()"><ion-icon name="logo-twitter"></ion-icon></button>
+    </ion-fab-list>
+</ion-fab>
+  
 </ion-content>
