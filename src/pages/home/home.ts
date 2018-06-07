@@ -32,4 +32,7 @@ export class HomePage {
   GoToQuickStart() {
     this.navCtrl.push(QuickStartPage);
   }
+  
+  ShareToFacebook() {}
+  ShareToTwitter() {}
 }
