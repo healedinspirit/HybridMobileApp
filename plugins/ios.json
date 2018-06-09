@@ -32,11 +32,10 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "healingthenations.healedinspirit"
-        }
-    },
-    "dependent_plugins": {
+        },
         "cordova-plugin-add-swift-support": {
             "PACKAGE_NAME": "healingthenations.healedinspirit"
         }
-    }
+    },
+    "dependent_plugins": {}
 }

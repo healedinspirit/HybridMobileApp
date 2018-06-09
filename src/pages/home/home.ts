@@ -2,13 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { IntroPage } from '../intro/intro';
 import { QuickStartPage } from '../intro/quickstart';
-import { HeatPage } from '../heat/heat';
-import { HealingPage } from '../healing/healing';
-import { CleansingPage } from '../cleansing/cleansing';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { AnalyticsService } from '../../services/analytics-service';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +13,10 @@ import { AnalyticsService } from '../../services/analytics-service';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private transitions: NativePageTransitions, private ga: AnalyticsService, public splashScreen: SplashScreen) {
+  constructor(public navCtrl: NavController,
+    private ga: AnalyticsService,
+    public splashScreen: SplashScreen,
+    public sharing: SocialSharing) {
       this.ga.TrackView('Home');
   
     }
@@ -33,7 +33,16 @@ export class HomePage {
     this.navCtrl.push(QuickStartPage);
   }
   
-  ShareToFacebook() {}
-  ShareToTwitter() {}
-  ShareToEmail() {}
+  ShareToFacebook() {
+    this.sharing.shareViaFacebook('Check this app!', null, 'www.healedinspirit.com');
+  }
+
+  ShareToTwitter() {
+    this.sharing.shareViaTwitter('', null, 'www.healedinspirit.com');
+  }
+
+  ShareToEmail() {
+    this.sharing.shareViaEmail('/n/n/n http://www.healedinspirit.com', 'Check this app!', null);
+  }
+
 }

@@ -32,11 +32,10 @@
         },
         "com.telerik.plugins.nativepagetransitions": {
             "PACKAGE_NAME": "io.ionic.starter"
-        }
-    },
-    "dependent_plugins": {
+        },
         "cordova-plugin-add-swift-support": {
             "PACKAGE_NAME": "io.ionic.starter"
         }
-    }
+    },
+    "dependent_plugins": {}
 }

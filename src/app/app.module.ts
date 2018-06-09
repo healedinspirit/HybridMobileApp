@@ -4,6 +4,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { Pro } from '@ionic/pro';
 
 import { StatusBar } from '@ionic-native/status-bar';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
@@ -74,6 +75,7 @@ export class AppErrorHandler implements ErrorHandler {
     GoogleAnalytics,
     AnalyticsService,
     NativePageTransitions,
+    SocialSharing,
     { provide: ErrorHandler, useClass: AppErrorHandler }
   ]
 })
