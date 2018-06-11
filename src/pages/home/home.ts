@@ -34,15 +34,15 @@ export class HomePage {
   }
   
   ShareToFacebook() {
-    this.sharing.shareViaFacebook('Check this app!', null, 'www.healedinspirit.com');
+    this.sharing.share('Check this app!', null, null, null);
   }
 
   ShareToTwitter() {
-    this.sharing.shareViaTwitter('', null, 'www.healedinspirit.com');
+    this.sharing.share('Check this app!', null, null, null);
   }
 
   ShareToEmail() {
-    this.sharing.shareViaEmail('/n/n/n http://www.healedinspirit.com', 'Check this app!', null);
+    this.sharing.share('Check this app!', null, null, null);
   }
 
 }
