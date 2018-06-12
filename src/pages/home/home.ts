@@ -34,7 +34,7 @@ export class HomePage {
   }
 
   Share() {
-    this.sharing.share("You'll love this app called Headed In Spirit! The website is at www.healedinspirit.com.", 'Check out this app!', null, 'www.healedinspirit.com');
+    this.sharing.share("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, 'www.healedinspirit.com');
   }
 
   ShareToFacebook() {
