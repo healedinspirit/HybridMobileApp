@@ -24,6 +24,8 @@ export class HomePage {
   ionViewDidEnter() {
     this.splashScreen.hide();
   }
+
+  GoToTerms() { }
   
   GoToIntro() {
       this.navCtrl.push(IntroPage);

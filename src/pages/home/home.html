@@ -22,17 +22,26 @@
   <ion-grid padding>
     <ion-row>
       <ion-col text-center>
-        <button ion-button round class="card-button" (click)="GoToQuickStart()" color="his-medium">QUICK START</button>
+        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToQuickStart()" color="his-medium">Quick Start</button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <button ion-button round class="card-button" (click)="GoToIntro()" color="his-medium">LEARN MORE</button>
+        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToIntro()" color="his-light">Learn More</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <br />
+        <span style="font-size: .75em">By using this app, you agree to our</span><br />
+        <a (click)="GoToTerms()">Terms and Conditions</a>.
       </ion-col>
     </ion-row>
   </ion-grid>
+
 <br/>
-  <ion-card class="subject-card">
+
+  <ion-card class="subject-card" style="display:none;">
     <ion-card-header style="background-color: #fefefe;" class="subject-card-header">Legal Information</ion-card-header>
     <ion-card-content style="background-color: #fefefe;">
       <p>By using this app, you agree to the terms set forth in this agreement.</p>
