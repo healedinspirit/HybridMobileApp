@@ -23,6 +23,7 @@ import { WastePage } from '../pages/waste/waste';
 import { AdhesivesPage } from '../pages/adhesives/adhesives';
 import { MonitoringService } from '../services/monitoring-service';
 import { AnalyticsService } from '../services/analytics-service';
+import { GlobalService } from '../services/global.service';
 
 export class AppErrorHandler implements ErrorHandler {
   private IonicPro = Pro.init('f9fd3452', { appVersion: '2.18.6' });
@@ -30,7 +31,7 @@ export class AppErrorHandler implements ErrorHandler {
 
   handleError(err: any): void {
     console.log(err);
-    this.IonicPro.monitoring.exception(err);
+    this.IonicPro.monitoring.exception(new Error(err));
   }
 }
 
@@ -76,6 +77,7 @@ export class AppErrorHandler implements ErrorHandler {
     AnalyticsService,
     NativePageTransitions,
     SocialSharing,
+    GlobalService,
     { provide: ErrorHandler, useClass: AppErrorHandler }
   ]
 })

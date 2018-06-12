@@ -32,9 +32,13 @@ export class HomePage {
   GoToQuickStart() {
     this.navCtrl.push(QuickStartPage);
   }
-  
+
+  Share() {
+    this.sharing.share("You'll love this app called Headed In Spirit! The website is at www.healedinspirit.com.", 'Check out this app!', null, 'www.healedinspirit.com');
+  }
+
   ShareToFacebook() {
-    this.sharing.share('Check this app!', null, null, null);
+      this.sharing.share('Check it out.', null, null, 'www.healedinspirit.com');
   }
 
   ShareToTwitter() {
@@ -43,6 +47,10 @@ export class HomePage {
 
   ShareToEmail() {
     this.sharing.share('Check this app!', null, null, null);
+  }
+
+  ShareToText() {
+
   }
 
 }
