@@ -7,23 +7,29 @@
         </ion-header>
 
         <ion-content>
-            <ion-list>
-              <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                {{p.title}}
-              </button>
-                <ion-list-header style="font-weight: 500;">
-                    HEALING
-                </ion-list-header>
-                <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of healingPages" (click)="openPage(p)">
-                    {{p.title}}
-                </button>
-                <ion-list-header style="font-weight: 500;">
-                    CLEANSING
-                </ion-list-header>
-                <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of cleansingPages" (click)="openPage(p)">
-                    {{p.title}}
-                </button>
-            </ion-list>
+          <ion-list>
+            <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+              {{p.title}}
+            </button>
+            <ion-list-header style="font-weight: 500;">
+              HEALING
+            </ion-list-header>
+            <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of healingPages" (click)="openPage(p)">
+              {{p.title}}
+            </button>
+            <ion-list-header style="font-weight: 500;">
+              CLEANSING
+            </ion-list-header>
+            <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of cleansingPages" (click)="openPage(p)">
+              {{p.title}}
+            </button>
+            <ion-list-header style="font-weight: 500;">
+              SYSTEM
+            </ion-list-header>
+            <button style="font-weight: 500;" color="light" menuClose ion-item *ngFor="let p of systemPages" (click)="openPage(p)">
+              {{p.title}}
+            </button>
+          </ion-list>
         </ion-content>
 
     </ion-menu>

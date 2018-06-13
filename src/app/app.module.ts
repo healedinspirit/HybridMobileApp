@@ -21,6 +21,9 @@ import { LumberPage } from '../pages/lumber/lumber';
 import { PoisonPage } from '../pages/poison/poison';
 import { WastePage } from '../pages/waste/waste';
 import { AdhesivesPage } from '../pages/adhesives/adhesives';
+import { SettingsPage } from '../pages/settings/settings';
+import { TermsPage } from '../pages/settings/terms';
+import { PrivacyPage } from '../pages/settings/privacy';
 import { MonitoringService } from '../services/monitoring-service';
 import { AnalyticsService } from '../services/analytics-service';
 import { GlobalService } from '../services/global.service';
@@ -48,7 +51,10 @@ export class AppErrorHandler implements ErrorHandler {
     LumberPage,
     PoisonPage,
     WastePage,
-    AdhesivesPage
+    AdhesivesPage,
+    SettingsPage,
+    TermsPage,
+    PrivacyPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +73,10 @@ export class AppErrorHandler implements ErrorHandler {
     LumberPage,
     PoisonPage,
     WastePage,
-    AdhesivesPage
+    AdhesivesPage,
+    SettingsPage,
+    TermsPage,
+    PrivacyPage
   ],
   providers: [
     StatusBar,

@@ -15,6 +15,9 @@ import { WastePage } from '../pages/waste/waste';
 import { AdhesivesPage } from '../pages/adhesives/adhesives';
 import { QuickStartPage } from '../pages/intro/quickstart';
 import { AnalyticsService } from '../services/analytics-service';
+import { SettingsPage } from '../pages/settings/settings';
+import { TermsPage } from '../pages/settings/terms';
+import { PrivacyPage } from '../pages/settings/privacy';
 
 @Component({
     templateUrl: 'app.html'
@@ -25,13 +28,20 @@ export class MyApp {
     pages: Array<{ title: string, component: any }>;
     healingPages: Array<{ title: string, component: any }>;
     cleansingPages: Array<{ title: string, component: any }>;
+    systemPages: Array<{ title: string, component: any }>;
     
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public monitoring: AnalyticsService) {
 
       this.monitoring.TrackView('Application');
 
         this.initializeApp();
-      
+
+        this.systemPages = [
+          { title: 'Settings', component: SettingsPage },
+          { title: 'Terms', component: TermsPage },
+          { title: 'Privacy', component: PrivacyPage }
+        ];
+
         this.pages = [
             { title: 'Home', component: HomePage },
             { title: 'Introduction', component: IntroPage },
