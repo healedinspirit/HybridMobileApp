@@ -29,7 +29,7 @@ import { AnalyticsService } from '../services/analytics-service';
 import { GlobalService } from '../services/global.service';
 
 export class AppErrorHandler implements ErrorHandler {
-  private IonicPro = Pro.init('f9fd3452', { appVersion: '2.18.6' });
+  private IonicPro = Pro.init('f9fd3452', { appVersion: '0.6.1' });
   constructor() { }
 
   handleError(err: any): void {

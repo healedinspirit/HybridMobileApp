@@ -9,7 +9,7 @@ export class AnalyticsService {
 
     TrackView(view: string) {
         this.ga.startTrackerWithId('UA-109837237-1');
-        this.ga.setAppVersion('2.18.6');
+        this.ga.setAppVersion('0.6.1');
         this.ga.trackView(view);
     }
 
