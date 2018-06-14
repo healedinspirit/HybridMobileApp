@@ -40,7 +40,7 @@ ion-app.wp {
 
 ion-nav .ion-page div.toolbar-background-md {
   background-color: #fff;
-  color: #4799FF;
+  color: #5c9bbc;
 }
 
 
@@ -49,7 +49,7 @@ ion-menu div.toolbar-background-md {
 }
 
 ion-menu div.toolbar-title {
-font-size: 17px;
+  font-size: 17px;
 }
 
 
@@ -70,15 +70,15 @@ font-size: 17px;
 }
 
 .subject-header {
-  color: #3284b3;//#4c9dcd; //  #4799FF;
+  color: #3284b3; //#4c9dcd; //  #4799FF;
   margin: 0;
   padding: 28px;
-border-bottom: 3px solid #2c566d;
+  border-bottom: 2px solid #5c9bbc;
 }
 
 div.subject-header span {
   color: #225877;
-font-size: 14px;
+  font-size: 14px;
 }
 
 .subject-page {
@@ -86,7 +86,11 @@ font-size: 14px;
 }
 
 .subject-card {
-  border-left: solid 3px #9AB229;// #5db643; /* #00B0FF;*/
+  border: 0;
+}
+
+ion-card.card-md {
+  box-shadow: none;
 }
 
 .subject-card-first {
@@ -98,13 +102,13 @@ ion-card-content p.subject-card-detail {
 }
 
 .subject-card-header {
-  color: #414d54;/* #00B0FF;*/
+  color: #414d54; /* #00B0FF;*/
   font-weight: 700;
 }
 
 .category-header {
   /*background-color: #1e88e5;*/ /*#448aff;*/
-  color: #4799FF;// #fff;
+  color: #4799FF; // #fff;
   //height: 150px;
   margin: 0;
   padding: 28px;
@@ -115,31 +119,17 @@ ion-card-content p.subject-card-detail {
   margin-right: 15px;
 }
 
-.circle {
-  padding-top: 17px;
-  margin: 10px auto 5px auto;
-  width: 90px;
-  height: 90px;
-  border-radius: 45px;
-  background-color: #00B0FF;
-}
-
-.circle div {
-  font-family: 'Roboto';
-  font-size: 2.7em;
-  font-weight: 700;
-  color: #000;
-  text-align: center;
-}
 .home-content {
   background-color: #fff; // #448AFF;
 }
+
 .home-gradient {
   background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
   background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
 }
+
 .bkgd-gradient {
   background: #f0f9ff; /* Old browsers */
   background: -moz-linear-gradient(top, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%); /* FF3.6-15 */
@@ -147,6 +137,7 @@ ion-card-content p.subject-card-detail {
   background: linear-gradient(to bottom, #f0f9ff 0%,#cbebff 47%,#a1dbff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#a1dbff',GradientType=0 );
 }
+
 .home-header {
   padding-top: 30px;
 }
@@ -207,21 +198,19 @@ ion-footer {
 .item-md {
   /*background-color: #99c7ff;*/
 }
+
 .item-md-light {
   /*background-color: #e6f1ff;*/
 }
 
 
 .bar-button-default-md {
-
-color: #4799ff;
+  color: #5c9bbc;
 }
 
 
-ion-header div.toolbar-title-md
-{
-  
-color: #4799ff;
+ion-header div.toolbar-title-md {
+  color: #5c9bbc;
 }
 
 ion-menu div.toolbar-title-md {
@@ -249,10 +238,15 @@ ion-menu ion-list-header.item-md {
   background-color: #5c9bbc;
   color: #fff;
 }
+
 ion-menu ion-list-header.list-header-md {
-border-top-width: 0;
+  border-top-width: 0;
 }
-ion-menu ion-list-header ion-label { color: #555;}
 
+ion-menu ion-list-header ion-label {
+  color: #555;
+}
 
-
+.logo-footer {
+  margin: 0 20% 0 30%;
+}
