@@ -8,13 +8,13 @@
   },
   "installed_plugins": {
     "com.telerik.plugins.nativepagetransitions": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-google-analytics": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-ionic": {
       "APP_ID": "f9fd3452",
@@ -22,22 +22,25 @@
       "UPDATE_API": "https://api.ionicjs.com",
       "UPDATE_METHOD": "background",
       "MAX_STORE": "2",
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "ionic-plugin-keyboard": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "HealedInSpirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "Healed In Spirit"
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     }
   },
   "dependent_plugins": {}

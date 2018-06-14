@@ -44,8 +44,15 @@ export class HomePage {
   }
 
   Share() {
-      this.pro.monitoring.exception(new Error('Error in Home.Share()'));
-      this.sharing.share("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, 'www.healedinspirit.com')
+    this.pro.monitoring.exception(new Error('Error in Home.Share()'));
+    let options = {
+      message: "Get healed fast with Headed In Spirit! ", // not supported on some apps (Facebook, Instagram)
+      subject: "You'll love this new app I found!", // fi. for email
+      files: null, // an array of filenames either locally or remotely
+      url: 'http://www.healedinspirit.com',
+      chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+    };
+      this.sharing.shareWithOptions(options)
         .then(() => {
           this.toast('You clicked Share.');
         })
