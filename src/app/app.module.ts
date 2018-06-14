@@ -87,7 +87,7 @@ export class AppErrorHandler implements ErrorHandler {
     NativePageTransitions,
     SocialSharing,
     GlobalService
-    /*{ provide: ErrorHandler, useClass: AppErrorHandler }*/
+    ,{ provide: ErrorHandler, useClass: AppErrorHandler }
   ]
 })
 export class AppModule { }
