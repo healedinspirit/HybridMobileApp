@@ -36,44 +36,22 @@ ion-app.wp {
   color: #fff;
 }
 
-page-home div.toolbar-background-md {
-  background-color: #4799FF;
+
+
+ion-nav .ion-page div.toolbar-background-md {
+  background-color: #fff;
+  color: #4799FF;
 }
-page-intro div.toolbar-background-md,
-page-quickstart div.toolbar-background-md,
-page-healing div.toolbar-background-md,
-page-cleansing div.toolbar-background-md {
-  background-color: #4799FF; // #005cb2;
-}
+
 
 ion-menu div.toolbar-background-md {
-  background-color: #4799FF; // #FF6F60;
+  background-color: #2c566d;
 }
 
-page-adhesives div.toolbar-background-md,
-page-heat div.toolbar-background-md,
-page-callus div.toolbar-background-md,
-page-cuts div.toolbar-background-md,
-page-lumber div.toolbar-background-md,
-page-poison div.toolbar-background-md,
-page-punctures div.toolbar-background-md,
-page-settings div.toolbar-background-md,
-page-terms div.toolbar-background-md,
-page-privacy div.toolbar-background-md,
-page-waste div.toolbar-background-md {
-  background-color: #4799FF; // #2061B2;
+ion-menu div.toolbar-title {
+font-size: 17px;
 }
 
-page-adhesives ion-content,
-page-heat ion-content,
-page-callus ion-content,
-page-cuts ion-content,
-page-lumber ion-content,
-page-poison ion-content,
-page-punctures ion-content,
-page-waste ion-content {
-  background-color: #e8e8e8;
-}
 
 .toolbar-title-md {
   color: #fff;
@@ -95,14 +73,16 @@ page-waste ion-content {
   color: #3284b3;//#4c9dcd; //  #4799FF;
   margin: 0;
   padding: 28px;
+border-bottom: 3px solid #2c566d;
 }
 
 div.subject-header span {
   color: #225877;
+font-size: 14px;
 }
 
 .subject-page {
-  background-color: #e8e8e8;
+  background-color: #fff;
 }
 
 .subject-card {
@@ -230,3 +210,49 @@ ion-footer {
 .item-md-light {
   /*background-color: #e6f1ff;*/
 }
+
+
+.bar-button-default-md {
+
+color: #4799ff;
+}
+
+
+ion-header div.toolbar-title-md
+{
+  
+color: #4799ff;
+}
+
+ion-menu div.toolbar-title-md {
+  color: #fff;
+}
+
+ion-menu button.item {
+  background-color: #5c9bbc;
+  color: #fff;
+}
+
+
+
+ion-menu ion-content.content-md {
+  background-color: #5c9bbc;
+  color: #fff;
+}
+
+ion-menu ion-content {
+  background-color: #5c9bbc;
+  color: #fff;
+}
+
+ion-menu ion-list-header.item-md {
+  background-color: #5c9bbc;
+  color: #fff;
+}
+ion-menu ion-list-header.list-header-md {
+border-top-width: 0;
+}
+ion-menu ion-list-header ion-label { color: #555;}
+
+
+
