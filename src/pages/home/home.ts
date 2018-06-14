@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { IntroPage } from '../intro/intro';
 import { QuickStartPage } from '../intro/quickstart';
 import { TermsPage } from '../settings/terms';
@@ -21,7 +21,8 @@ export class HomePage {
     private ga: AnalyticsService,
     public splashScreen: SplashScreen,
     public sharing: SocialSharing,
-    public global: GlobalService) {
+    public global: GlobalService,
+    public toaster: ToastController) {
       this.ga.TrackView('Home');
   
     }
@@ -44,27 +45,58 @@ export class HomePage {
 
   Share() {
       this.pro.monitoring.exception(new Error('Error in Home.Share()'));
-    this.sharing.share("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, 'www.healedinspirit.com');
+      this.sharing.share("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, 'www.healedinspirit.com')
+        .then(() => {
+          this.toast('You clicked Share.');
+        })
+        .catch(() => {
+          this.toast('Error in Share event.');
+        });
   }
 
   ShareToFacebook() {
       this.pro.monitoring.exception(new Error('Error in Home.ShareToFacebook()'));
-      this.sharing.share('Check it out.', null, null, 'www.healedinspirit.com');
+      this.sharing.shareViaFacebook('Check this app!', null, 'www.healedinspirit.com')
+        .then(() => {
+          this.toast('You clicked ShareToFacebook.');
+        })
+        .catch(() => {
+          this.toast('Error in ShareToFacebook event.');
+        });
     
   }
 
   ShareToTwitter() {
-        this.pro.monitoring.exception(new Error('Home.ShareToTwitter()'));
-        this.sharing.share('Check this app!', null, null, null);
+    this.pro.monitoring.exception(new Error('Home.ShareToTwitter()'));
+    this.sharing.shareViaTwitter('Check this app!', null, 'www.healedinspirit.com')
+          .then(() => {
+            this.toast('You clicked ShareToTwitter.');
+          })
+          .catch(() => {
+            this.toast('Error in ShareToTwitter event.');
+          });
   }
 
   ShareToEmail() {
       this.pro.monitoring.exception(new Error('Error in Home.ShareToEmail()'));
-      this.sharing.share('Check this app!', null, null, null);
+      this.sharing.shareViaEmail("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, null, null, null)
+        .then(() => {
+          this.toast('You clicked ShareToEmail.');
+        })
+        .catch(() => {
+          this.toast('Error in Share event.');
+        });
   }
 
   ShareToText() {
 
+  }
+
+  toast(message: string) {
+    this.toaster.create({
+      message: message,
+      duration: 10000
+    });
   }
 
 }
