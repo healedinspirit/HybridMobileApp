@@ -38,6 +38,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "healingthenations.healedinspirit"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "healingthenations.healedinspirit"
     }
   },
   "dependent_plugins": {}
