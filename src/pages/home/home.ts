@@ -43,44 +43,24 @@ export class HomePage {
   }
 
   Share() {
-    try {
-
+      this.pro.monitoring.exception(new Error('Error in Home.Share()'));
     this.sharing.share("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, 'www.healedinspirit.com');
-  
-    }
-    catch (e) {
-      this.pro.monitoring.exception(new Error('Error in Home.Share(): ' + e));
-    }
   }
 
   ShareToFacebook() {
-    try {
-
+      this.pro.monitoring.exception(new Error('Error in Home.ShareToFacebook()'));
       this.sharing.share('Check it out.', null, null, 'www.healedinspirit.com');
-    }
-    catch (e) {
-      this.pro.monitoring.exception(new Error('Error in Home.ShareToFacebook(): ' + e));
-    }
+    
   }
 
   ShareToTwitter() {
-      try {
-
+        this.pro.monitoring.exception(new Error('Home.ShareToTwitter()'));
         this.sharing.share('Check this app!', null, null, null);
-      }
-      catch (e) {
-        this.pro.monitoring.exception(new Error('Error in Home.ShareToTwitter(): ' + e));
-      }
   }
 
   ShareToEmail() {
-    try {
-
-      this.sharing.share('Check this app!', null, null, null);
-    }
-    catch (e) {
       this.pro.monitoring.exception(new Error('Error in Home.ShareToEmail(): ' + e));
-    }
+      this.sharing.share('Check this app!', null, null, null);
   }
 
   ShareToText() {
