@@ -93,10 +93,13 @@ export class HomePage {
   }
 
   toast(message: string) {
-    this.toaster.create({
+    let aToast = this.toaster.create({
       message: message,
-      duration: 10000
+      duration: 10000,
+      position: 'top'
     });
+
+    aToast.present();
   }
 
 }
