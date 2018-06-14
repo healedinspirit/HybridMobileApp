@@ -59,7 +59,7 @@ export class HomePage {
   }
 
   ShareToEmail() {
-      this.pro.monitoring.exception(new Error('Error in Home.ShareToEmail(): ' + e));
+      this.pro.monitoring.exception(new Error('Error in Home.ShareToEmail()'));
       this.sharing.share('Check this app!', null, null, null);
   }
 
