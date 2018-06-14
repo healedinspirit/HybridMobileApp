@@ -56,8 +56,8 @@ export class HomePage {
         .then(() => {
           this.toast('You clicked Share.');
         })
-        .catch(() => {
-          this.toast('Error in Share event.');
+        .catch((e) => {
+          this.toast('Error in Share: ' + e);
         });
   }
 
@@ -67,8 +67,8 @@ export class HomePage {
         .then(() => {
           this.toast('You clicked ShareToFacebook.');
         })
-        .catch(() => {
-          this.toast('Error in ShareToFacebook event.');
+        .catch((e) => {
+          this.toast('Error in ShareToFacebook: ' + e);
         });
     
   }
@@ -79,8 +79,8 @@ export class HomePage {
           .then(() => {
             this.toast('You clicked ShareToTwitter.');
           })
-          .catch(() => {
-            this.toast('Error in ShareToTwitter event.');
+          .catch((e) => {
+            this.toast('Error in ShareToTwitter: ' + e);
           });
   }
 
@@ -90,8 +90,8 @@ export class HomePage {
         .then(() => {
           this.toast('You clicked ShareToEmail.');
         })
-        .catch(() => {
-          this.toast('Error in Share event.');
+        .catch((e) => {
+          this.toast('Error in Share: ' + e);
         });
   }
 
