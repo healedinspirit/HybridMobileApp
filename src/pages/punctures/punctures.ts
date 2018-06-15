@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { CutsPage } from '../cuts/cuts';
-import { AdhesivesPage } from '../adhesives/adhesives';
 import { AnalyticsService } from '../../services/analytics-service';
 
 @Component({
