@@ -20,32 +20,6 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-// Spinkit variables
-$spinkit-spinner-margin: 40px auto !default;
-$spinkit-size: 40px !default;
-$spinkit-spinner-color: #333 !default;
-
-.sk-spinner-pulse {
-  width: $spinkit-size;
-  height: $spinkit-size;
-  margin: $spinkit-spinner-margin;
-  background-color: $spinkit-spinner-color;
-  border-radius: 100%;
-  animation: sk-pulseScaleOut 1.0s infinite ease-in-out;
-}
-
-@keyframes sk-pulseScaleOut {
-  0% {
-    transform: scale(0);
-  }
-
-  100% {
-    transform: scale(1.0);
-    opacity: 0;
-  }
-}
-
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -55,14 +29,11 @@ $spinkit-spinner-color: #333 !default;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary: #448AFF,
-  secondary: #58BCF5,// #00B0FF,
+  primary: #326580,
+  secondary: #599BBE,
+  tertiary: #C9E3F5,
   danger: #f53d3d,
-  light: #f4f4f4,
-  dark: #222,
-  his-dark: #2c566d,
-  his-medium: #5c9bbc,
-  his-light: rgb(185,217,235)
+  light: #E8E8E8,
 );
 
 
