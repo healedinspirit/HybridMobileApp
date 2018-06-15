@@ -44,13 +44,12 @@ export class HomePage {
   }
 
   Share() {
-    this.pro.monitoring.exception(new Error('Error in Home.Share()'));
     let options = {
-      message: "Get healed fast with Headed In Spirit! ", // not supported on some apps (Facebook, Instagram)
-      subject: "You'll love this new app I found!", // fi. for email
-      files: null, // an array of filenames either locally or remotely
+      message: "Get healed fast with Headed In Spirit! ",
+      subject: "You'll love this app!",
+      files: null,
       url: 'http://www.healedinspirit.com',
-      chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+      chooserTitle: 'Pick an app'
     };
       this.sharing.shareWithOptions(options)
         .then(() => {
@@ -61,48 +60,10 @@ export class HomePage {
         });
   }
 
-  ShareToFacebook() {
-      this.pro.monitoring.exception(new Error('Error in Home.ShareToFacebook()'));
-      this.sharing.shareViaFacebook('Check this app!', null, 'www.healedinspirit.com')
-        .then(() => {
-          this.toast('You clicked ShareToFacebook.');
-        })
-        .catch((e) => {
-          this.toast('Error in ShareToFacebook: ' + e);
-        });
-    
-  }
-
-  ShareToTwitter() {
-    this.pro.monitoring.exception(new Error('Home.ShareToTwitter()'));
-    this.sharing.shareViaTwitter('Check this app!', null, 'www.healedinspirit.com')
-          .then(() => {
-            this.toast('You clicked ShareToTwitter.');
-          })
-          .catch((e) => {
-            this.toast('Error in ShareToTwitter: ' + e);
-          });
-  }
-
-  ShareToEmail() {
-      this.pro.monitoring.exception(new Error('Error in Home.ShareToEmail()'));
-      this.sharing.shareViaEmail("Get healed fast with Headed In Spirit! ", "You'll love this new app I found!", null, null, null, null)
-        .then(() => {
-          this.toast('You clicked ShareToEmail.');
-        })
-        .catch((e) => {
-          this.toast('Error in Share: ' + e);
-        });
-  }
-
-  ShareToText() {
-
-  }
-
   toast(message: string) {
     let aToast = this.toaster.create({
       message: message,
-      duration: 10000,
+      duration: 3000,
       position: 'top'
     });
 
