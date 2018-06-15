@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AnalyticsService } from '../../services/analytics-service';
 
@@ -9,12 +9,12 @@ import { AnalyticsService } from '../../services/analytics-service';
 })
 export class PrivacyPage {
 
-  constructor(public navCtrl: NavController, private ga: AnalyticsService, public mdl: ModalController) {
+  constructor(public navCtrl: NavController, private ga: AnalyticsService) {
     this.ga.TrackView('Privacy');
   }
-  
+
   GoHome() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
   
 }

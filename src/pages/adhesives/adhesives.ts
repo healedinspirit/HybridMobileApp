@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { PoisonPage } from '../poison/poison';
-import { PuncturesPage } from '../punctures/punctures';
 import { AnalyticsService } from '../../services/analytics-service';
 
 @Component({
@@ -15,13 +13,7 @@ export class AdhesivesPage {
         this.ga.TrackView('Adhesives');
     }
   
-    GoBack() {
-      this.navCtrl.push(PuncturesPage);
-    }
     GoHome() {
-        this.navCtrl.push(HomePage);
-    }
-    Next() {
-      this.navCtrl.push(PoisonPage);
+        this.navCtrl.setRoot(HomePage);
     }
 }

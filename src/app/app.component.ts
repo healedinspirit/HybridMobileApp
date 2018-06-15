@@ -15,7 +15,7 @@ import { WastePage } from '../pages/waste/waste';
 import { AdhesivesPage } from '../pages/adhesives/adhesives';
 import { QuickStartPage } from '../pages/intro/quickstart';
 import { AnalyticsService } from '../services/analytics-service';
-import { SettingsPage } from '../pages/settings/settings';
+/*import { SettingsPage } from '../pages/settings/settings';*/
 import { TermsPage } from '../pages/settings/terms';
 import { PrivacyPage } from '../pages/settings/privacy';
 
@@ -37,13 +37,13 @@ export class MyApp {
         this.initializeApp();
 
         this.systemPages = [
-          { title: 'Settings', component: SettingsPage },
+          /*{ title: 'Settings', component: SettingsPage },*/
           { title: 'Terms', component: TermsPage },
           { title: 'Privacy', component: PrivacyPage }
         ];
 
         this.pages = [
-            { title: 'Home', component: HomePage },
+            /*{ title: 'Home', component: HomePage },*/
             { title: 'Introduction', component: IntroPage },
             { title: 'Quick Start', component: QuickStartPage }
         ];
@@ -70,7 +70,11 @@ export class MyApp {
           //this.splashScreen.hide();
         });
     }
-        
+
+    GoHome() {
+      this.nav.setRoot(HomePage);
+    }
+
   openPage(page) {
       this.nav.push(page.component);
     }

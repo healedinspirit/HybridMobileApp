@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HeatPage } from '../heat/heat';
 import { HomePage } from '../home/home';
 import { AnalyticsService } from '../../services/analytics-service';
 
@@ -14,11 +13,7 @@ export class IntroPage {
         this.ga.TrackView('Introduction');
     }
 
-  GetStarted() {
-    this.navCtrl.push(HeatPage);
-  }
-  
-  GoHome() {
-    this.navCtrl.push(HomePage);
-  }
+    GoHome() {
+      this.navCtrl.setRoot(HomePage);
+    }
 }

@@ -14,7 +14,7 @@ export class TermsPage {
   }
 
   GoHome() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

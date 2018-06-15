@@ -8,14 +8,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AnalyticsService } from '../../services/analytics-service';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { GlobalService } from '../../services/global.service';
-import { Pro } from '@ionic/pro';
+//import { Pro } from '@ionic/pro';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  private pro = Pro.init('f9fd3452', { appVersion: '0.6.1' });
+  //private pro = Pro.init('f9fd3452', { appVersion: '0.6.1' });
 
   constructor(public navCtrl: NavController,
     private ga: AnalyticsService,

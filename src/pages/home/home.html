@@ -22,7 +22,7 @@
   <ion-grid padding>
     <ion-row>
       <ion-col text-center>
-        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToQuickStart()" color="his-medium">Quick Start</button>
+        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToQuickStart()" color="secondary">Quick Start</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -31,16 +31,16 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
-        <br />
-        <span style="font-size: .75em">By using this app, you agree to our</span><br />
-        <a (click)="GoToTerms()">Terms and Conditions</a>.
-      </ion-col>
+    <ion-col text-center>
+    <br />
+    <button ion-button round style="padding: 1.5em 4em" class="card-button"  (click)="Share()" color="light"><ion-icon name="share"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Share</button>
+    </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
         <br />
-        <button ion-button round style="padding: 1.5em 4em" class="card-button"  (click)="Share()" color="his-medium"><ion-icon name="share"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Share</button>
+        <span style="font-size: .75em">By using this app, you agree to our</span><br />
+        <a (click)="GoToTerms()">Terms and Conditions</a>.
       </ion-col>
     </ion-row>
   </ion-grid>

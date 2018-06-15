@@ -7,7 +7,10 @@
         </ion-header>
 
         <ion-content>
-          <ion-list>
+          <ion-list style="margin-top: 15px;">
+            <button menuClose ion-item (click)="GoHome()">
+              Home
+            </button>
             <button menuClose ion-item *ngFor="let page of pages" (click)="openPage(page)">
               {{page.title}}
             </button>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CallusPage } from '../callus/callus';
 import { HomePage } from '../home/home';
 import { AnalyticsService } from '../../services/analytics-service';
 
@@ -14,14 +13,7 @@ export class HeatPage {
         this.ga.TrackView('Heat');
     }
 
-  GoBack() {
-  
-  }
-
-  GoHome() {
-      this.navCtrl.push(HomePage);
-  }
-  Next() {
-    this.navCtrl.push(CallusPage);
-  }
+    GoHome() {
+      this.navCtrl.setRoot(HomePage);
+    }
 }

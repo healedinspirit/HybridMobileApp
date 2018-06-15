@@ -14,14 +14,8 @@ export class PuncturesPage {
     constructor(public navCtrl: NavController, private ga: AnalyticsService) {
         this.ga.TrackView('Punctures');
   }
-  
-  GoBack() {
-    this.navCtrl.push(CutsPage);
-  }
-  GoHome() {
-      this.navCtrl.push(HomePage);
-  }
-  Next() {
-    this.navCtrl.push(AdhesivesPage);
-  }
+
+    GoHome() {
+      this.navCtrl.setRoot(HomePage);
+    }
 }
