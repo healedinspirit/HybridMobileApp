@@ -51,13 +51,7 @@ export class HomePage {
       url: 'http://www.healedinspirit.com',
       chooserTitle: 'Pick an app'
     };
-      this.sharing.shareWithOptions(options)
-        .then(() => {
-          this.toast('You clicked Share.');
-        })
-        .catch((e) => {
-          this.toast('Error in Share: ' + e);
-        });
+    this.sharing.shareWithOptions(options);
   }
 
   toast(message: string) {
