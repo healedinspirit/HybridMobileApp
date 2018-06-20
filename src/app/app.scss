@@ -1,5 +1,15 @@
 // http://ionicframework.com/docs/theming/
 
+.home-screen-logo {
+  margin: auto;
+  width: 275px;
+}
+
+.home-screen-img {
+  width: auto;
+  max-width: 275px;
+}
+
 .page-title {
   color: color($colors, primary);
   font-size: 28px;
@@ -133,7 +143,13 @@ ion-menu ion-list-header ion-label {
   margin: 0 20% 0 30%;
 }
 
+.home-button {
+  padding: 1.5em 4em;
+}
 
+.small-link {
+  font-size: .75em;
+}
 
 
 

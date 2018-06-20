@@ -8,7 +8,7 @@
     <ion-title>Home</ion-title>
     <ion-buttons right>
       <button ion-button (click)="Share()">
-        <i class="icon-share icons line-icon"></i>
+        <i class="icon-share icons line-icon" style="font-size: 14px; font-weight: 500;"></i>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,8 +19,8 @@
   <ion-grid class="home-header">
     <ion-row>
       <ion-col col-12>
-        <div style="margin: auto; width: 275px;">
-          <img src="assets/img/logo-vertical.png" style="width:auto; max-width:275px;" />
+        <div class="home-screen-logo">
+          <img src="assets/img/logo-vertical.png" class="home-screen-img" />
         </div>
       </ion-col>
     </ion-row>
@@ -29,24 +29,18 @@
   <ion-grid padding>
     <ion-row>
       <ion-col text-center>
-        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToQuickStart()" color="secondary">Quick Start</button>
+        <button ion-button round class="home-button" (click)="GoToQuickStart()" color="secondary">Quick Start</button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <button ion-button round style="padding: 1.5em 4em" class="card-button" (click)="GoToIntro()" color="light">Learn More</button>
+        <button ion-button round class="home-button" (click)="GoToIntro()" color="light">Learn More</button>
       </ion-col>
-    </ion-row>
-    <ion-row style="display:none;">
-    <ion-col text-center>
-    <br />
-    <button ion-button round style="padding: 1.5em 4em" class="card-button"  (click)="Share()" color="light"><ion-icon name="share"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Share</button>
-    </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
         <br />
-        <span style="font-size: .75em">By using this app, you agree to our</span><br />
+        <span class="small-link">By using this app, you agree to our</span><br />
         <a (click)="GoToTerms()">Terms and Conditions</a>.
       </ion-col>
     </ion-row>
