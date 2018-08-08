@@ -85,6 +85,10 @@ ion-menu div.toolbar-background-md {
   background-color: color($colors, primary);
 }
 
+ion-menu div.toolbar-background-ios {
+  background-color: color($colors, primary);
+}
+
 ion-menu ion-header div.toolbar-title {
   font-size: 17px;
   color: color($colors, tertiary);
@@ -100,12 +104,21 @@ ion-menu ion-content.content-md {
   color: #fff;
 }
 
+ion-menu ion-content.content-ios {
+  background-color: color($colors, secondary);
+  color: #fff;
+}
+
 ion-menu ion-content {
   background-color: color($colors, secondary);
   color: #fff;
 }
 
 ion-menu ion-list-header.item-md {
+  background-color: color($colors, secondary);
+}
+
+ion-menu ion-list-header.item-ios {
   background-color: color($colors, secondary);
 }
 
@@ -118,6 +131,10 @@ ion-menu ion-list-header.item-md {
 }
 
 .bar-button-default-md {
+  color: color($colors, primary);
+}
+
+.bar-button-default-ios {
   color: color($colors, primary);
 }
 
