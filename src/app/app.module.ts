@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
-import { Pro } from '@ionic/pro';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -29,12 +28,15 @@ import { AnalyticsService } from '../services/analytics-service';
 import { GlobalService } from '../services/global.service';
 
 export class AppErrorHandler implements ErrorHandler {
-  private IonicPro = Pro.init('f9fd3452', { appVersion: '0.6.1' });
+  private ga: GoogleAnalytics = new GoogleAnalytics();
+
   constructor() { }
 
   handleError(err: any): void {
     console.log(err);
-    this.IonicPro.monitoring.exception(new Error(err));
+    this.ga.startTrackerWithId('UA-109837237-1');
+    this.ga.setAppVersion('1.5.2');
+    this.ga.trackException(JSON.stringify(err), true);
   }
 }
 
